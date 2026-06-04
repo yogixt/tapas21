@@ -14,6 +14,8 @@ export const users = sqliteTable("users", {
   notifyNoJunkFood: integer("notify_no_junk_food", { mode: "boolean" }).default(true),
   notifyYogicLife: integer("notify_yogic_life", { mode: "boolean" }).default(true),
   botHistory: text("bot_history").default("[]"),
+  resetCode: text("reset_code"),
+  resetCodeExpiresAt: text("reset_code_expires_at"),
   createdAt: text("created_at").notNull().default("(datetime('now'))"),
 });
 

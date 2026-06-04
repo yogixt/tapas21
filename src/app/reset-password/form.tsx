@@ -1,16 +1,10 @@
 "use client";
 
 import { useActionState } from "react";
-import { loginAction } from "./actions";
-import { useSearchParams } from "next/navigation";
+import { resetPasswordAction } from "./actions";
 
-export function LoginForm() {
-  const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirect") || "/dashboard";
-  const [state, action, pending] = useActionState(
-    loginAction,
-    { error: "", redirectTo }
-  );
+export function ResetPasswordForm() {
+  const [state, action, pending] = useActionState(resetPasswordAction, { error: "" });
 
   return (
     <form action={action} className="space-y-5">
@@ -31,34 +25,42 @@ export function LoginForm() {
           name="email"
           type="email"
           required
-          autoComplete="email"
           className="input-field"
           placeholder="your@email.com"
         />
       </div>
       <div>
-        <div className="flex items-center justify-between mb-1.5">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-[#4B5563]"
-          >
-            Password
-          </label>
-          <a
-            href="/forgot-password"
-            className="text-xs font-medium text-[#FF6B35] hover:underline"
-          >
-            Forgot?
-          </a>
-        </div>
+        <label
+          htmlFor="code"
+          className="mb-1.5 block text-sm font-medium text-[#4B5563]"
+        >
+          Reset Code
+        </label>
+        <input
+          id="code"
+          name="code"
+          type="text"
+          required
+          className="input-field font-mono tracking-widest text-center text-lg"
+          placeholder="000000"
+          maxLength={6}
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="password"
+          className="mb-1.5 block text-sm font-medium text-[#4B5563]"
+        >
+          New Password
+        </label>
         <input
           id="password"
           name="password"
           type="password"
           required
-          autoComplete="current-password"
+          minLength={6}
           className="input-field"
-          placeholder="Your password"
+          placeholder="At least 6 characters"
         />
       </div>
       <button
@@ -66,7 +68,7 @@ export function LoginForm() {
         disabled={pending}
         className="btn-primary w-full disabled:opacity-50"
       >
-        {pending ? "Signing in..." : "Sign in"}
+        {pending ? "Resetting..." : "Reset Password"}
       </button>
     </form>
   );

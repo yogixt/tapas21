@@ -47,6 +47,12 @@ async function main() {
   await client.execute(`
     ALTER TABLE users ADD COLUMN bot_history TEXT DEFAULT '[]'
   `).catch(() => {});
+  await client.execute(`
+    ALTER TABLE users ADD COLUMN reset_code TEXT DEFAULT NULL
+  `).catch(() => {});
+  await client.execute(`
+    ALTER TABLE users ADD COLUMN reset_code_expires_at TEXT DEFAULT NULL
+  `).catch(() => {});
 
   await client.execute(`
     CREATE TABLE IF NOT EXISTS daily_entries (
