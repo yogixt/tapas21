@@ -90,6 +90,20 @@ export default async function DashboardHome() {
         </p>
       </section>
 
+      {/* Motto / Warning Banner */}
+      <div className="rounded-2xl border border-red-200 bg-red-50 px-5 py-4">
+        <div className="flex items-start gap-3">
+          <span className="text-xl">🔥</span>
+          <div>
+            <p className="text-sm font-bold text-red-700">21-Day Challenge Rule</p>
+            <p className="mt-0.5 text-sm leading-relaxed text-red-600">
+              1 break = start from Day 1 again. No reset, no mercy.{" "}
+              <strong>Consistency is the only way.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Challenge Progress */}
       <section className="card">
         <div className="flex items-center justify-between mb-3">

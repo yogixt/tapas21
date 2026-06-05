@@ -79,6 +79,11 @@ export function Sidebar({ userName, dayNumber }: { userName: string; dayNumber: 
             </p>
           </div>
         </div>
+        <div className="mb-3 rounded-lg border border-red-100 bg-red-50 px-3 py-2 text-center">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-red-500">
+            1 break = Day 1 again
+          </p>
+        </div>
         <form action={logoutAction}>
           <button
             type="submit"
