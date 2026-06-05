@@ -20,12 +20,37 @@ export default async function DashboardHome() {
     orderBy: [desc(weightRecords.date)],
   });
 
-  const today = format(new Date(), "yyyy-MM-dd");
+  function todayIST() {
+    const now = new Date();
+    const ist = new Date(now.getTime() + 5.5 * 60 * 60 * 1000);
+    return ist.toISOString().split("T")[0];
+  }
+
+  function getStreak(dates: string[]): number {
+    if (dates.length === 0) return 0;
+    const sorted = [...new Set(dates)].sort().reverse();
+    const today = todayIST();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yStr = yesterday.toISOString().split("T")[0];
+    if (sorted[0] !== today && sorted[0] !== yStr) return 0;
+    let streak = 1;
+    for (let i = 1; i < sorted.length; i++) {
+      const prev = new Date(sorted[i - 1]);
+      const curr = new Date(sorted[i]);
+      const diff = (prev.getTime() - curr.getTime()) / (1000 * 60 * 60 * 24);
+      if (diff === 1) streak++;
+      else break;
+    }
+    return streak;
+  }
+
+  const today = todayIST();
   const todayEntry = entries.find((e) => e.date === today);
   const latestWeight = weightData[0]?.weightKg ?? null;
   const startWeight = 85;
 
-  const dayNumber = entries.length;
+  const dayNumber = getStreak(entries.map((e) => e.date));
   const streak = calculateStreak(entries);
   const totalStudy = entries.reduce((sum, e) => sum + (e.studyHours ?? 0), 0);
 
